@@ -1,10 +1,10 @@
 # RubberDuckCrew 🦆
 
-Welcome to the **RubberDuckCrew** GitHub organization — a community-driven collective focused on developing innovative, developer-friendly tools and apps with a touch of quack.  
+Welcome to the **RubberDuckCrew** GitHub organization - a community-driven collective focused on developing innovative, developer-friendly tools and apps with a touch of quack.  
 
 ## About RubberDuckCrew
 
-We believe in the power of clear communication and collaborative problem solving — inspired by the classic “rubber duck debugging” technique. Our projects aim to help developers and teams work smarter, not harder.
+We believe in the power of clear communication and collaborative problem solving - inspired by the classic “rubber duck debugging” technique. Our projects aim to help developers and teams work smarter, not harder.
 
 ## Our Projects
 
