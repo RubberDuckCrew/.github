@@ -35,4 +35,4 @@ Stay tuned, stay quacking! 🦆
 
 ## License
 
-Most projects are licensed under the MIT License — see individual repositories for details.
+Most projects are licensed under the MIT License - see individual repositories for details.
