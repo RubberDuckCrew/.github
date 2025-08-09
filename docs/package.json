@@ -1,0 +1,24 @@
+{
+    "name": "rubberduckcrew-docs",
+    "version": "1.0.0",
+    "description": "Documentation for RubberDuckCrew organization",
+    "homepage": "https://github.com/RubberDuckCrew/.github#readme",
+    "bugs": {
+        "url": "https://github.com/RubberDuckCrew/.github/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RubberDuckCrew/.github.git"
+    },
+    "license": "MIT",
+    "author": "RubberDuckCrew",
+    "type": "module",
+    "scripts": {
+        "dev": "vitepress dev",
+        "build": "vitepress build",
+        "preview": "vitepress preview"
+    },
+    "devDependencies": {
+        "vitepress": "^1.6.4"
+    }
+}
