@@ -45,7 +45,10 @@ jobs:
             - name: Build with VitePress
               run: npm run build --base ${{ github.event.repository.name }}
 
-            - run: ls
+            - run: |
+                ls -la
+                cd ..
+                ls -la
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
