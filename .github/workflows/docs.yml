@@ -43,7 +43,7 @@ jobs:
               run: npm ci
 
             - name: Build with VitePress
-              run: npm run build --base ${{ github.event.repository.name }}
+              run: npm run build
 
             - run: |
                   ls -la

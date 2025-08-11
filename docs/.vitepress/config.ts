@@ -26,6 +26,7 @@ export default defineConfig({
         ],
     },
     srcDir: "./src",
+    base: "/.github/",
     assetsDir: "./assets",
     cleanUrls: true,
     lastUpdated: true,
