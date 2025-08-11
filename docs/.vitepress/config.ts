@@ -26,7 +26,6 @@ export default defineConfig({
         ],
     },
     srcDir: "./src",
-    outDir: "./dist",
     assetsDir: "./assets",
     cleanUrls: true,
     lastUpdated: true,
