@@ -4,8 +4,10 @@ layout: home
 
 hero:
     name: "RubberDuckCrew Docs"
-    text: "Documentation for RubberDuckCrew organization"
-    tagline: My great project tagline
+    text: "General documentation for the organization"
+    image:
+        src: "/logo.svg"
+        alt: "RubberDuckCrew Logo"
     actions:
         - theme: brand
           text: Contributing conventions
