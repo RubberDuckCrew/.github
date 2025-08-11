@@ -47,7 +47,7 @@ jobs:
 
             - run: |
                 ls -la
-                cd ..
+                cd ./.vitepress
                 ls -la
 
             - name: Upload artifact
