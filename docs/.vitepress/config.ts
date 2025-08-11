@@ -8,15 +8,33 @@ export default defineConfig({
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             { text: "Home", link: "/" },
-            { text: "Examples", link: "/markdown-examples" },
+            {
+                text: "Contributing",
+                items: [
+                    {
+                        text: "Contributing conventions",
+                        link: "/contributing/conventions",
+                    },
+                    {
+                        text: "Contributing with forks",
+                        link: "/contributing/forks",
+                    },
+                ],
+            },
         ],
 
         sidebar: [
             {
-                text: "Examples",
+                text: "Contributing",
                 items: [
-                    { text: "Markdown Examples", link: "/markdown-examples" },
-                    { text: "Runtime API Examples", link: "/api-examples" },
+                    {
+                        text: "Contributing conventions",
+                        link: "/contributing/conventions",
+                    },
+                    {
+                        text: "Contributing with forks",
+                        link: "/contributing/forks",
+                    },
                 ],
             },
         ],

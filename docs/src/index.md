@@ -3,23 +3,20 @@
 layout: home
 
 hero:
-  name: "RubberDuckCrew Docs"
-  text: "Documentation for RubberDuckCrew organization"
-  tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+    name: "RubberDuckCrew Docs"
+    text: "Documentation for RubberDuckCrew organization"
+    tagline: My great project tagline
+    actions:
+        - theme: brand
+          text: Contributing conventions
+          link: /contributing/conventions
+        - theme: alt
+          text: Contributing with forks
+          link: /contributing/forks
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    - title: Contribution conventions
+      details: Learn about the guidelines and best practices for contributing to our projects.
+    - title: Contributing workflows
+      details: Explore the workflows and processes for contributing to our projects.
 ---
-
