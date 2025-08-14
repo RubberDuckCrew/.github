@@ -1,0 +1,29 @@
+:root {
+    --vp-c-brand-1: #e8d400;
+    --vp-c-brand-2: #e27c08;
+    --vp-c-brand-3: var(--vp-c-brand-2);
+}
+
+/* Dark mode specific configurations */
+/* .dark {
+	...
+} */
+
+/* Enables footer on all pages instead of only the home page */
+footer.VPFooter {
+    display: block !important;
+    z-index: 100 !important;
+}
+
+@media all and (max-width: 450px) {
+    /* Hides the logo text on mobile phones */
+    .VPNav div.logo a {
+        width: 23px;
+        overflow: hidden;
+    }
+    /* Fixes compression of logo on phone screens */
+    .VPNav div.logo a img {
+        object-fit: cover;
+        object-position: left;
+    }
+}
