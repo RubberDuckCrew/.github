@@ -2,12 +2,9 @@ name: Build and deploy docs
 
 on:
     push:
-        branches:
-            - main
-        paths:
-            - "docs/**"
-            - ".github/workflows/docs.yml"
-    workflow_dispatch:
+        branches: [main]
+    pull_request:
+        types: [opened, synchronize]
 
 permissions:
     contents: read
