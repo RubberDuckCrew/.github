@@ -67,8 +67,17 @@ jobs:
 
             - name: Deploy to Cloudflare Pages
               uses: cloudflare/wrangler-action@v3
+              id: deploy
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
                   gitHubToken: ${{ secrets.GITHUB_TOKEN }}
                   command: pages deploy dist --project-name=rubberduckcrew --branch=${{ github.head_ref || github.ref_name }}
+
+            - name: Output deployment URL
+              env:
+                  DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+                  DEPLOYMENT_ALIAS_URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
+              run: |
+                  echo "Deployment URL: $DEPLOYMENT_URL"
+                  echo "Deployment Alias URL: $DEPLOYMENT_ALIAS_URL"
