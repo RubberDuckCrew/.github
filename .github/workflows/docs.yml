@@ -3,8 +3,10 @@ name: Build and deploy docs
 on:
     push:
         branches: [main]
+        paths: [docs/**, .github/workflows/docs.yml]
     pull_request:
-        types: [opened, synchronize]
+        types: [opened, labeled, synchronize]
+        paths: [docs/**, .github/workflows/docs.yml]
 
 permissions:
     contents: read
@@ -51,12 +53,14 @@ jobs:
 
     deploy:
         name: Deploy docs
-        runs-on: ubuntu-latest
         needs: build
+        if: ${{ ( github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, '⚗️ Request Build') ) && !github.event.pull_request.head.repo.fork}}
+        runs-on: ubuntu-latest
 
         permissions:
             contents: read
             deployments: write
+            pull-requests: write
 
         steps:
             - name: Download build artifacts
@@ -67,8 +71,28 @@ jobs:
 
             - name: Deploy to Cloudflare Pages
               uses: cloudflare/wrangler-action@v3
+              id: deploy
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
                   gitHubToken: ${{ secrets.GITHUB_TOKEN }}
                   command: pages deploy dist --project-name=rubberduckcrew --branch=${{ github.head_ref || github.ref_name }}
+
+            - name: Comment deployment info
+              uses: thollander/actions-comment-pull-request@v3
+              if: github.event_name == 'pull_request'
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  comment-tag: deployment-info
+                  mode: recreate
+                  message: |
+                      **🌐 Preview Deployments**
+                      - Commit: ${{ steps.deploy.outputs.deployment-url }}
+                      - Branch: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
+
+            - name: Remove build request label
+              uses: IamPekka058/removeLabels@v2
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  labels: |
+                      - ⚗️ Request Build
