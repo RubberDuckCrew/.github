@@ -71,4 +71,4 @@ jobs:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
                   gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-                  command: pages deploy dist --project-name=rubberduckcrew --env=${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+                  command: pages deploy dist --project-name=rubberduckcrew --branch=${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
