@@ -74,10 +74,13 @@ jobs:
                   gitHubToken: ${{ secrets.GITHUB_TOKEN }}
                   command: pages deploy dist --project-name=rubberduckcrew --branch=${{ github.head_ref || github.ref_name }}
 
-            - name: Output deployment URL
-              env:
-                  DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
-                  DEPLOYMENT_ALIAS_URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
-              run: |
-                  echo "Deployment URL: $DEPLOYMENT_URL"
-                  echo "Deployment Alias URL: $DEPLOYMENT_ALIAS_URL"
+            - uses: thollander/actions-comment-pull-request@v3
+              if: github.event_name == 'pull_request'
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  comment-tag: deployment-info
+                  mode: recreate
+                  message: |
+                      **Deployment URLs:**
+                      - Commit: ${{ steps.deploy.outputs.deployment-url }}
+                      - Branch: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
