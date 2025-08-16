@@ -2,12 +2,9 @@ name: Build and deploy docs
 
 on:
     push:
-        branches:
-            - main
-        paths:
-            - "docs/**"
-            - ".github/workflows/docs.yml"
-    workflow_dispatch:
+        branches: [main]
+    pull_request:
+        types: [opened, synchronize]
 
 permissions:
     contents: read
@@ -44,7 +41,7 @@ jobs:
               run: npm ci
 
             - name: Build with VitePress
-              run: npm run build -- --base "/${{ github.event.repository.name }}/"
+              run: npm run build
 
             - name: Upload build artifacts
               uses: actions/upload-artifact@v4
@@ -74,4 +71,4 @@ jobs:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
                   gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-                  command: pages deploy dist --project-name=rubberduckcrew
+                  command: pages deploy dist --project-name=rubberduckcrew --branch=${{ github.head_ref || github.ref_name }}
