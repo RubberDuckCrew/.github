@@ -92,6 +92,7 @@ jobs:
 
             - name: Remove build request label
               uses: IamPekka058/removeLabels@v2
+              if: github.event_name == 'pull_request'
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   labels: |
