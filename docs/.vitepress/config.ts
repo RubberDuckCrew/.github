@@ -60,4 +60,7 @@ export default defineConfig({
     srcDir: "./src",
     cleanUrls: true,
     lastUpdated: true,
+    vite: {
+        publicDir: "../public",
+    },
 });

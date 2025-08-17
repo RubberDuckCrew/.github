@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/src/public/logo.svg" alt="RubberDuckCrew Logo" width="200"/>
+  <img src="docs/public/logo.svg" alt="RubberDuckCrew Logo" width="200"/>
   <br>
   <a href="https://rubberduckcrew.pages.dev" target="_blank">
     <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/RubberDuckCrew/.github/production?label=Documentation%20Deployment"></a>
