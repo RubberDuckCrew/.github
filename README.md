@@ -2,11 +2,9 @@
   <img src="docs/src/public/logo.svg" alt="RubberDuckCrew Logo" width="150"/>
   <br><br>
   <a href="https://rubberduckcrew.pages.dev" target="_blank">
-    <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/RubberDuckCrew/.github/production?label=Documentation%20Deployment">
-  </a>
+    <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/RubberDuckCrew/.github/production?label=Documentation%20Deployment"></a>
   <a href="https://github.com/RubberDuckCrew/.github/blob/main/LICENSE" target="_blank">
-    <img src="https://img.shields.io/github/license/RubberDuckCrew/.github" alt="MIT License"/>
-  </a>
+    <img src="https://img.shields.io/github/license/RubberDuckCrew/.github" alt="MIT License"/></a>
 </div>
 
 # RubberDuckCrew .github
