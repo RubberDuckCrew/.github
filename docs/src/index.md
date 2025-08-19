@@ -4,7 +4,7 @@ layout: home
 
 hero:
     name: "RubberDuckCrew Docs"
-    text: "General documentation for the organization"
+    tagline: "General documentation for the organization"
     image:
         src: "/logo.svg"
         alt: "RubberDuckCrew Logo"
