@@ -1,0 +1,20 @@
+{
+    "id": 6127940,
+    "name": "Require signed commits",
+    "target": "branch",
+    "source_type": "Repository",
+    "source": "RubberDuckCrew/.github",
+    "enforcement": "active",
+    "conditions": {
+        "ref_name": {
+            "exclude": [],
+            "include": ["~ALL"]
+        }
+    },
+    "rules": [
+        {
+            "type": "required_signatures"
+        }
+    ],
+    "bypass_actors": []
+}
