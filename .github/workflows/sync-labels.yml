@@ -1,0 +1,21 @@
+name: Sync labels
+
+on:
+    schedule:
+        - cron: "0 3 * * 0"
+    workflow_dispatch:
+
+jobs:
+    sync-labels:
+        name: Sync labels
+        runs-on: ubuntu-latest
+
+        permissions:
+            issues: write
+
+        steps:
+            - name: Sync labels
+              uses: srealmoreno/label-sync-action@v2.0.0
+              with:
+                  clean-labels: true
+                  config-file: https://raw.githubusercontent.com/RubberDuckCrew/gitdone/refs/heads/main/configs/conventions/labels.yml
