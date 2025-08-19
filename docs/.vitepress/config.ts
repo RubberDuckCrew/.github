@@ -16,7 +16,7 @@ export default defineConfig({
             },
             {
                 text: "Development",
-                link: "/development/ci-cd",
+                link: "/development/",
             },
         ],
 
@@ -41,6 +41,7 @@ export default defineConfig({
             },
             {
                 text: "Development",
+                link: "/development/",
                 items: [{ text: "CI/CD", link: "/development/ci-cd" }],
             },
         ],
