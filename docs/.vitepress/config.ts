@@ -33,7 +33,7 @@ export default defineConfig({
         sidebar: [...content],
         editLink: {
             pattern:
-                "https://github.com/RubberDuckCrew/.github/blob/main/docs/:path",
+                "https://github.com/RubberDuckCrew/.github/blob/main/docs/src/:path",
             text: "View this page on GitHub",
         },
         socialLinks: [
