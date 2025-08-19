@@ -10,8 +10,8 @@ hero:
         alt: "RubberDuckCrew Logo"
     actions:
         - theme: brand
-          text: Contributing conventions
-          link: /contributing/conventions
+          text: Contributing guide
+          link: /contributing
         - theme: alt
           text: Contributing with forks
           link: /contributing/forks
