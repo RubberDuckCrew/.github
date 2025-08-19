@@ -6,9 +6,11 @@ The workflows, tools, and standards described here ensure consistent quality and
 
 ## Sync labels
 
-The "Sync labels" workflow ensures that all repositories in the RubberDuckCrew organization use a consistent set of labels for issues and pull requests. The global label list is defined in [`configs/conventions/labels.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/labels.yml) and documented at [rubberduckcrew.pages.dev/contributing/conventions](https://rubberduckcrew.pages.dev/contributing/conventions). This workflow automatically synchronizes these organization-wide labels to each repository, keeping them up to date and standardized.
+The "Sync labels" workflow ensures that all repositories in the RubberDuckCrew organization use a consistent set of labels for issues and pull requests.
 
-The workflow runs every Sunday at 3:00 UTC and can also be triggered manually.
+The labels are defined globally in [`labels.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/labels.yml) in the `.github` repository and documented in the [Contributing conventions](/contributing/conventions).
+
+To sync them automatically to each repository, a GitHub Actions workflow is set up in the `.github/workflows/sync-labels.yml` file. This workflow runs on a schedule and can also be triggered manually.
 
 ```yml
 name: Sync labels
@@ -16,6 +18,9 @@ name: Sync labels
 on:
     schedule:
         - cron: "0 3 * * 0"
+    push:
+        branches: [main]
+        paths: [.github/workflows/sync-labels.yml]
     workflow_dispatch:
 
 jobs:
@@ -31,14 +36,14 @@ jobs:
               uses: srealmoreno/label-sync-action@v2.0.0
               with:
                   clean-labels: true
-                  config-file: https://raw.githubusercontent.com/RubberDuckCrew/gitdone/refs/heads/main/configs/conventions/labels.yml
+                  config-file: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/labels.yml
 ```
 
 ## Actionlint
 
 Actionlint is a linter for GitHub Actions workflows. It helps to ensure that your workflow files are valid and follow best practices.
 
-To use Actionlint, you need to create a GitHub Actions workflow file (e.g., `.github/workflows/actionlint.yml`) with the following content:
+To run Actionlint automatically we use a GitHub Action workflow defined in `.github/workflows/actionlint.yml`:
 
 ```yml
 name: Actionlint

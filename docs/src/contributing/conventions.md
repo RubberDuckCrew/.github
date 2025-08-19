@@ -37,7 +37,7 @@ When creating branches for your contributions, please use one of the following p
 
 ## Labels
 
-When creating pull requests and issues , please use the appropriate labels to categorize your changes. This helps maintainers quickly understand the nature of your contribution. The labels should match the prefixes used in branch naming.
+When creating pull requests and issues, please use the appropriate labels to categorize your changes. This helps maintainers quickly understand the nature of your contribution. The labels should match the prefixes used in branch naming.
 
 | Label               | Description                                                           | Color   | Branch Prefix |
 | ------------------- | --------------------------------------------------------------------- | ------- | ------------- |
@@ -63,3 +63,5 @@ When creating pull requests and issues , please use the appropriate labels to ca
 | 🚧 Work in Progress | This is not yet complete                                              | #ffa500 | -             |
 
 > Note: The labels without a branch prefix are used for issues and pull requests that do not correspond to a specific branch type, such as discussions or questions.
+
+The labels are defined globally in [`labels.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/labels.yml) in the `.github` repository and are synchronized across all repositories using a GitHub Actions workflow. See [Sync labels](/development/ci-cd#sync-labels) for more details.
