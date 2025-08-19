@@ -4,6 +4,27 @@ CI/CD (Continuous Integration and Continuous Deployment) refers to the automatio
 
 The workflows, tools, and standards described here ensure consistent quality and efficient processes across the organization. For project-specific details, please refer to the documentation in the respective repositories.
 
+## Renovate
+
+Renovate is a tool for automating dependency updates. It helps keep your project dependencies up-to-date by creating pull requests for new versions of dependencies.
+
+We use a central Renovate configuration, located at [`renovate-rubberduckcrew.json`](https://github.com/RubberDuckCrew/.github/blob/main/configs/renovate/renovate-rubberduckcrew.json) in the `.github` repository. This file defines global rules and standards for all repositories in the organization.
+
+In the individual repositories, enable Renovate by creating a `.github/renovate.json` file that extends the central configuration and adds repository-specific rules:
+
+```json
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "github>RubberDuckCrew/.github//configs/renovate/renovate-rubberduckcrew.json"
+    ]
+}
+```
+
+This will automatically apply all standard rules and labels. You can add repository-specific rules in this file if needed.
+
+For more information and examples, see the [Renovate documentation](https://docs.renovatebot.com/).
+
 ## Sync labels
 
 The "Sync labels" workflow ensures that all repositories in the RubberDuckCrew organization use a consistent set of labels for issues and pull requests.
