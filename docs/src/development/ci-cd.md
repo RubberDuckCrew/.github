@@ -133,10 +133,18 @@ jobs:
               uses: raven-actions/actionlint@v2
 ```
 
-To run Actionlint locally, you can use the following command:
+To run Actionlint locally, you have two options:
 
-```shell
-podman run --rm -v .:/repo --workdir /repo rhysd/actionlint:latest -color
-```
+1. **Direct installation:**
 
-> **Note:** You need to have Podman or Docker installed to run Actionlint locally. If you are using Docker, you can replace `podman` with `docker` in the command above.
+    - Install Actionlint directly on your system. See the [Actionlint documentation](https://github.com/rhysd/actionlint/blob/v1.7.7/docs/install.md) for installation instructions.
+
+2. **Using a container image:**
+
+    - Use a container image with Actionlint already installed. Run the following command:
+
+        ```shell
+        podman run --rm -v .:/repo --workdir /repo rhysd/actionlint:latest -color
+        ```
+
+    > **Note:** If you are using Docker, replace `podman` with `docker` in the command above.
