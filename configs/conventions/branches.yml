@@ -1,0 +1,11 @@
+- "feature/*" # ✨ Implementing a new feature or major functionality
+- "fix/*" # 🐛 Fixing a bug, issue, or regression
+- "docs/*" # 📝 Documentation updates or improvements
+- "test/*" # 🧪 Adding or updating tests (unit, integration, etc.)
+- "refactor/*" # ♻️ Code refactoring without changing existing behavior
+- "ui/*" # 💄 User interface or experience improvements
+- "ci/*" # 👷 CI/CD or automation pipeline changes
+- "config/*" # 🔧 Configuration file changes or updates
+- "security/*" # 🔒️ Fixing or improving security-related functionality
+- "chore/*" # 🛠️ General maintenance, dependency updates, tooling, etc.
+- "renovate/*" # 📌 Automated dependency updates by Renovate Bot
