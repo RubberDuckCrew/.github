@@ -4,6 +4,27 @@ CI/CD (Continuous Integration and Continuous Deployment) refers to the automatio
 
 The workflows, tools, and standards described here ensure consistent quality and efficient processes across the organization. For project-specific details, please refer to the documentation in the respective repositories.
 
+## Renovate
+
+Renovate is a tool for automating dependency updates. It helps keep your project dependencies up-to-date by creating pull requests for new versions of dependencies.
+
+We use a central Renovate configuration, located at [`renovate-rubberduckcrew.json`](https://github.com/RubberDuckCrew/.github/blob/main/configs/renovate/renovate-rubberduckcrew.json) in the `.github` repository. This file defines global rules and standards for all repositories in the organization.
+
+In the individual repositories, enable Renovate by creating a `.github/renovate.json` file that extends the central configuration and adds repository-specific rules:
+
+```json
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "github>RubberDuckCrew/.github//configs/renovate/renovate-rubberduckcrew.json"
+    ]
+}
+```
+
+This will automatically apply all standard rules and labels. You can add repository-specific rules in this file if needed.
+
+For more information and examples, see the [Renovate documentation](https://docs.renovatebot.com/).
+
 ## Sync labels
 
 The "Sync labels" workflow ensures that all repositories in the RubberDuckCrew organization use a consistent set of labels for issues and pull requests.
@@ -39,6 +60,53 @@ jobs:
                   config-file: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/labels.yml
 ```
 
+## Enforce conventions
+
+To ensure that all contributions adhere to the project's conventions, we use a GitHub Actions workflow to enforce these rules. It runs on pull requests and checks for required labels and branch naming conventions.
+
+The `enforce-labels` job ensures that at least one label is assigned to the pull request, excluding meta labels like "Request Build", "Discussion", "Question", "Wontfix", "Duplicate", and "Work in Progress". If no label is assigned, it adds a comment prompting the user to assign a label.
+
+The `enforce-branch-names` job checks that the pull request branch name matches our [Branch naming](/contributing/conventions#branch-naming) conventions. Therefore, the allowed branch naming patterns are defined in [`branches.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/branches.yml) in the `.github` repository.
+
+```yml
+name: Enforce conventions
+
+on:
+    pull_request_target:
+        types: [opened, labeled, unlabeled]
+
+jobs:
+    enforce-labels:
+        name: Enforce pull request labels
+        runs-on: ubuntu-latest
+
+        permissions:
+            issues: write
+            pull-requests: write
+
+        steps:
+            - name: Enforce pull request labels
+              uses: mheap/github-action-required-labels@v5
+              with:
+                  mode: minimum
+                  count: 1
+                  labels: "^(?!(⚗️ Request Build$|💬 Discussion$|❓ Question$|❌ Wontfix$|🔄 Duplicate$|🚧 Work in Progress$)).+" # Exclude meta labels (do not describe PR content)
+                  use_regex: true
+                  add_comment: true
+                  message: "🏷️ Please assign at least one label to this pull request before requesting a review. See our [contributing conventions](https://rubberduckcrew.pages.dev/contributing/conventions) for details."
+
+    enforce-branch-names:
+        name: Enforce pull request branch names
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Enforce pull request branch names
+              uses: IamPekka058/branchMatchRegex@v1
+              with:
+                  inputPath: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
+                  useWildcard: true
+```
+
 ## Actionlint
 
 Actionlint is a linter for GitHub Actions workflows. It helps to ensure that your workflow files are valid and follow best practices.
@@ -65,10 +133,18 @@ jobs:
               uses: raven-actions/actionlint@v2
 ```
 
-To run Actionlint locally, you can use the following command:
+To run Actionlint locally, you have two options:
 
-```shell
-podman run --rm -v .:/repo --workdir /repo rhysd/actionlint:latest -color
-```
+1. **Direct installation:**
 
-> **Note:** You need to have Podman or Docker installed to run Actionlint locally. If you are using Docker, you can replace `podman` with `docker` in the command above.
+    - Install Actionlint directly on your system. See the [Actionlint documentation](https://github.com/rhysd/actionlint/blob/v1.7.7/docs/install.md) for installation instructions.
+
+2. **Using a container image:**
+
+    - Use a container image with Actionlint already installed. Run the following command:
+
+        ```shell
+        podman run --rm -v .:/repo --workdir /repo rhysd/actionlint:latest -color
+        ```
+
+    > **Note:** If you are using Docker, replace `podman` with `docker` in the command above.
