@@ -60,6 +60,53 @@ jobs:
                   config-file: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/labels.yml
 ```
 
+## Enforce conventions
+
+To ensure that all contributions adhere to the project's conventions, we use a GitHub Actions workflow to enforce these rules. It runs on pull requests and checks for required labels and branch naming conventions.
+
+The `enforce-labels` job ensures that at least one label is assigned to the pull request, excluding meta labels like "Request Build", "Discussion", "Question", "Wontfix", "Duplicate", and "Work in Progress". If no label is assigned, it adds a comment prompting the user to assign a label.
+
+The `enforce-branch-names` job checks that the pull request branch name matches our [Branch naming](/contributing/conventions#branch-naming) conventions. Therefore, the allowed branch naming patterns are defined in [`branches.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/branches.yml) in the `.github` repository.
+
+```yml
+name: Enforce conventions
+
+on:
+    pull_request_target:
+        types: [opened, labeled, unlabeled]
+
+jobs:
+    enforce-labels:
+        name: Enforce pull request labels
+        runs-on: ubuntu-latest
+
+        permissions:
+            issues: write
+            pull-requests: write
+
+        steps:
+            - name: Enforce pull request labels
+              uses: mheap/github-action-required-labels@v5
+              with:
+                  mode: minimum
+                  count: 1
+                  labels: "^(?!(⚗️ Request Build$|💬 Discussion$|❓ Question$|❌ Wontfix$|🔄 Duplicate$|🚧 Work in Progress$)).+" # Exclude meta labels (do not describe PR content)
+                  use_regex: true
+                  add_comment: true
+                  message: "🏷️ Please assign at least one label to this pull request before requesting a review. See our [contributing conventions](https://rubberduckcrew.pages.dev/contributing/conventions) for details."
+
+    enforce-branch-names:
+        name: Enforce pull request branch names
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Enforce pull request branch names
+              uses: IamPekka058/branchMatchRegex@v1
+              with:
+                  inputPath: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
+                  useWildcard: true
+```
+
 ## Actionlint
 
 Actionlint is a linter for GitHub Actions workflows. It helps to ensure that your workflow files are valid and follow best practices.
