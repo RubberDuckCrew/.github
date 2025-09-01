@@ -32,5 +32,5 @@ jobs:
             - name: Enforce pull request branch names
               uses: IamPekka058/branchMatchRegex@v1
               with:
-                  inputPath: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
+                  path: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
                   useWildcard: true
