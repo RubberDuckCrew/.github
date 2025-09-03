@@ -6,7 +6,7 @@ The workflows, tools, and standards described here ensure consistent quality and
 
 ## Renovate
 
-Renovate is a tool for automating dependency updates. It helps keep your project dependencies up-to-date by creating pull requests for new versions of dependencies.
+Renovate is a tool for automating dependency updates. It helps to keep the project's dependencies up-to-date by creating pull requests for new versions of dependencies.
 
 We use a central Renovate configuration, located at [`renovate-rubberduckcrew.json`](https://github.com/RubberDuckCrew/.github/blob/main/configs/renovate/renovate-rubberduckcrew.json) in the `.github` repository. This file defines global rules and standards for all repositories in the organization.
 
