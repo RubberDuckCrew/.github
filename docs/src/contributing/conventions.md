@@ -41,7 +41,7 @@ When creating branches for your contributions, please use one of the following p
 | `security/` | 🔒️     | Fixing or improving security-related functionality     | `security/fix-token-leak`     | 🔒️ Security       |
 | `chore/`    | 🛠️      | General maintenance, dependency updates, tooling, etc. | `chore/improve-logging`       | 🛠️ Maintenance     |
 
-The compliance of these branch prefixes is enforced by a GitHub Actions workflow that checks the branch name against the defined patterns defined in [`branches.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/branches.yml) in the `.github` repository. See [Enforce conventions](/contributing/conventions#enforce-conventions) for more details.
+The compliance of these branch prefixes is enforced by a GitHub Actions workflow that checks the branch name against the defined patterns defined in [`branches.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/branches.yml) in the `.github` repository. See [Enforce conventions](/development/ci-cd#enforce-conventions) for more details.
 
 ## Labels
 
