@@ -1,5 +1,5 @@
 :root {
-    --vp-c-brand-1: #e8d400;
+    --vp-c-brand-1: #bdad01;
     --vp-c-brand-2: #e27c08;
     --vp-c-brand-3: var(--vp-c-brand-2);
 
@@ -12,9 +12,9 @@
 }
 
 /* Dark mode specific configurations */
-/* .dark {
-	...
-} */
+.dark {
+    --vp-c-brand-1: #e8d400;
+}
 
 /* Enables footer on all pages instead of only the home page */
 footer.VPFooter {

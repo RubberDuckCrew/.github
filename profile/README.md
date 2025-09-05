@@ -29,7 +29,7 @@ We welcome contributions from everyone! Whether you want to:
 -   Submit pull requests
 -   Help with documentation
 
-Please start by reading our [Contributing Conventions](https://github.com/RubberDuckCrew/gitdone/wiki/Contributing-Conventions) to understand our workflows and code standards.
+Please start by reading our [Contributing Guide](https://rubberduckcrew.pages.dev/contributing/) to understand our workflows and code standards.
 
 ## Contact & Support 📞
 
