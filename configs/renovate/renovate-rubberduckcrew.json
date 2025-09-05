@@ -4,10 +4,11 @@
     "major": {
         "automerge": false
     },
-    "labels": ["📌 Dependencies"],
-    "commitMessagePrefix": "⬆️",
-    "commitMessageAction": "Upgrade",
     "packageRules": [
+        {
+            "matchUpdateTypes": ["patch"],
+            "automerge": true
+        },
         {
             "matchUpdateTypes": ["pin"],
             "commitMessagePrefix": "📌",
@@ -19,6 +20,9 @@
             "commitMessageAction": "Downgrade"
         }
     ],
+    "commitMessagePrefix": "⬆️",
+    "commitMessageAction": "Upgrade",
+    "labels": ["📌 Dependencies"],
     "dependencyDashboardTitle": "📌 Dependency Dashboard",
     "dependencyDashboardLabels": ["📌 Dependencies"]
 }
