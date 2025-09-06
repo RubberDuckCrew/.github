@@ -8,5 +8,3 @@ jobs:
     actionlint:
         # uses: RubberDuckCrew/.github/.github/workflows/action-actionlint.yml@main
         uses: ./.github/workflows/action-actionlint.yml
-        with:
-            additional-files: "configs/actions/**/*.yml"

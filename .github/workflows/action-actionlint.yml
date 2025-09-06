@@ -2,12 +2,6 @@ name: Actionlint
 
 on:
     workflow_call:
-        inputs:
-            additional-files:
-                type: string
-                default: ""
-                required: false
-                description: 'Additional files to lint (comma-separated, e.g. ".github/workflows/other.yml, configs/actions/**.yml")'
 
 jobs:
     actionlint:
@@ -20,5 +14,3 @@ jobs:
 
             - name: Run actionlint
               uses: raven-actions/actionlint@v2
-              with:
-                  files: ".github/workflows/*.yml, ${{ inputs.additional-files }}"
