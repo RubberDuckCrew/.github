@@ -8,3 +8,6 @@ jobs:
     enforce-conventions:
         # uses: RubberDuckCrew/.github/.github/workflows/action-conventions.yml@main
         uses: ./.github/workflows/action-conventions.yml
+        permissions:
+            issues: write
+            pull-requests: write

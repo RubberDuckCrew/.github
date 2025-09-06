@@ -8,20 +8,13 @@ on:
         types: [opened, labeled, synchronize]
         paths: [docs/**, .github/workflows/docs.yml]
 
-permissions:
-    contents: read
-    pages: write
-    id-token: write
-    deployments: write
-    pull-requests: write
-
-concurrency:
-    group: pages
-    cancel-in-progress: false
-
 jobs:
     docs:
         # uses: RubberDuckCrew/.github/.github/workflows/action-docs.yml@main
         uses: ./.github/workflows/action-docs.yml
         with:
             project-name: rubberduckcrew
+        permissions:
+            contents: read
+            deployments: write
+            pull-requests: write

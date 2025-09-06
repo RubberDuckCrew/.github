@@ -8,15 +8,6 @@ on:
                 required: true
                 description: "Cloudflare Pages project name"
 
-permissions:
-    contents: read
-    pages: write
-    id-token: write
-
-concurrency:
-    group: pages
-    cancel-in-progress: false
-
 jobs:
     build:
         name: Build docs
