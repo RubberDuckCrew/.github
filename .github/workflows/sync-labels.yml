@@ -10,4 +10,4 @@ on:
 
 jobs:
     sync-labels:
-        uses: RubberDuckCrew/.github/configs/actions/sync-labels@main
+        uses: RubberDuckCrew/.github/.github/workflows/action-sync-labels@main

@@ -19,6 +19,6 @@ concurrency:
 
 jobs:
     docs:
-        uses: RubberDuckCrew/.github/configs/actions/docs@main
+        uses: RubberDuckCrew/.github/.github/workflows/action-docs@main
         with:
             project-name: rubberduckcrew
