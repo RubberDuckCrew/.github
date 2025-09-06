@@ -6,4 +6,4 @@ on:
 
 jobs:
     enforce-conventions:
-        uses: RubberDuckCrew/.github/.github/workflows/action-conventions@main
+        uses: RubberDuckCrew/.github/.github/workflows/action-conventions.yml@main
