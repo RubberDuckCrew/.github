@@ -10,4 +10,5 @@ on:
 
 jobs:
     sync-labels:
-        uses: RubberDuckCrew/.github/.github/workflows/action-sync-labels.yml@main
+        # uses: RubberDuckCrew/.github/.github/workflows/action-sync-labels.yml@main
+        uses: ./.github/workflows/action-sync-labels.yml
