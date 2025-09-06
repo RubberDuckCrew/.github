@@ -6,12 +6,6 @@ on:
 
 jobs:
     actionlint:
-        name: Actionlint
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v5
-
-            - name: Run actionlint
-              uses: raven-actions/actionlint@v2
+        uses: RubberDuckCrew/.github/configs/actions/actionlint@main
+        with:
+            additional-files: "configs/actions/**/*.yml"
