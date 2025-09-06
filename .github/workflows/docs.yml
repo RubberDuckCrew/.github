@@ -19,7 +19,6 @@ concurrency:
 
 jobs:
     docs:
-        uses: RubberDuckCrew/.github/configs/actions/docs.yml@main
-        secrets: inherit
+        uses: RubberDuckCrew/.github/configs/actions/docs@main
         with:
             project-name: rubberduckcrew

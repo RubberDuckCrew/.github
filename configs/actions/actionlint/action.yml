@@ -1,0 +1,22 @@
+name: Actionlint
+
+inputs:
+  additional-files:
+    required: false
+    type: string
+    default: ''
+    description: 'Additional files to lint (comma-separated, e.g. ".github/workflows/other.yml, configs/actions/**.yml")'
+
+jobs:
+  actionlint:
+    name: Actionlint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Run actionlint
+        uses: raven-actions/actionlint@v2
+        with:
+          files: ".github/workflows/*.yml, ${{ inputs.additional-files }}"
