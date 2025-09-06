@@ -9,7 +9,7 @@ on:
         paths: [docs/**, .github/workflows/docs.yml]
 
 jobs:
-    docs:
+    run:
         # uses: RubberDuckCrew/.github/.github/workflows/action-docs.yml@main
         uses: ./.github/workflows/action-docs.yml
         with:

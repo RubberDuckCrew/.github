@@ -5,6 +5,6 @@ on:
         paths: [.github/workflows/**]
 
 jobs:
-    actionlint:
+    run:
         # uses: RubberDuckCrew/.github/.github/workflows/action-actionlint.yml@main
         uses: ./.github/workflows/action-actionlint.yml

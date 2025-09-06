@@ -9,7 +9,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    sync-labels:
+    run:
         # uses: RubberDuckCrew/.github/.github/workflows/action-sync-labels.yml@main
         uses: ./.github/workflows/action-sync-labels.yml
         permissions:

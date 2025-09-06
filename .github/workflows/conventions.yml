@@ -5,7 +5,7 @@ on:
         types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
-    enforce-conventions:
+    run:
         # uses: RubberDuckCrew/.github/.github/workflows/action-conventions.yml@main
         uses: ./.github/workflows/action-conventions.yml
         permissions:
