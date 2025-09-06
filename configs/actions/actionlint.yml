@@ -2,6 +2,11 @@ name: Actionlint
 
 on:
     workflow_call:
+        inputs:
+            additional-files:
+              required: false
+              type: string
+              default: ''
 
 jobs:
     actionlint:
@@ -14,3 +19,5 @@ jobs:
 
             - name: Run actionlint
               uses: raven-actions/actionlint@v2
+              with:
+                  files: ".github/workflows/*.yml, ${{ inputs.additional-files }}"

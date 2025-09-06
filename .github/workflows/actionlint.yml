@@ -7,3 +7,5 @@ on:
 jobs:
     actionlint:
         uses: RubberDuckCrew/.github/configs/actions/actionlint.yml@main
+        with:
+            additional-files: "configs/actions/**/*.yml"
