@@ -12,6 +12,7 @@ jobs:
     run:
         # uses: RubberDuckCrew/.github/.github/workflows/action-docs.yml@main
         uses: ./.github/workflows/action-docs.yml
+        secrets: inherit
         with:
             project-name: rubberduckcrew
         permissions:
