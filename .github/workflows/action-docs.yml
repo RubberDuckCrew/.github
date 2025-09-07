@@ -77,8 +77,7 @@ jobs:
                   comment-tag: deployment-info
                   mode: recreate
                   message: |
-                      **🌐 Preview Deployment**
-                      ${{ steps.deploy.outputs.pages-deployment-alias-url }}
+                      **🌐 Preview Deployment:** ${{ steps.deploy.outputs.pages-deployment-alias-url }}
 
             - name: Remove build request label
               uses: IamPekka058/removeLabels@v2
