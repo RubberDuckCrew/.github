@@ -25,13 +25,47 @@ This will automatically apply all standard rules and labels. You can add reposit
 
 For more information and examples, see the [Renovate documentation](https://docs.renovatebot.com/).
 
+## Docs build and deployment
+
+To automate the building and deployment of documentation, we use a GitHub Actions workflow that is defined globally in [`action-docs.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-docs.yml).
+
+In the `build` job it builds the markdown files using [vitepress](https://vitepress.dev/). After that, the documentation is deployed to Cloudflare Pages by the `deploy` job.
+
+To use this workflow in the individual repositories, create a `.github/workflows/docs.yml` file that references the global workflow:
+
+```yml
+name: Build and deploy docs
+
+on:
+    push:
+        branches: [main]
+        paths: [docs/**, .github/workflows/docs.yml]
+    pull_request:
+        types: [opened, labeled, synchronize]
+        paths: [docs/**, .github/workflows/docs.yml]
+
+jobs:
+    run:
+        uses: RubberDuckCrew/.github/.github/workflows/action-docs.yml@main
+        secrets: inherit
+        with:
+            project-name: YOUR_PROJECT_NAME
+        permissions:
+            contents: read
+            deployments: write
+            pull-requests: write
+```
+
+> [!IMPORTANT]
+> Make sure to replace `YOUR_PROJECT_NAME` with the actual project name used in Cloudflare Pages and to set the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets in the repository.
+
 ## Sync labels
 
 The "Sync labels" workflow ensures that all repositories in the RubberDuckCrew organization use a consistent set of labels for issues and pull requests.
 
 The labels are defined globally in [`labels.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/labels.yml) in the `.github` repository and documented in the [Contributing conventions](/contributing/conventions#labels).
 
-To sync them automatically to each repository, a GitHub Actions workflow is set up in the `.github/workflows/sync-labels.yml` file. This workflow runs on a schedule and can also be triggered manually.
+To sync them automatically to each repository, a GitHub Actions workflow is set up in the `.github/workflows/sync-labels.yml` file that uses the global workflow [`action-sync-labels.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-sync-labels.yml). The individual workflow runs on a schedule and can also be triggered manually.
 
 ```yml
 name: Sync labels
@@ -39,79 +73,43 @@ name: Sync labels
 on:
     schedule:
         - cron: "0 3 * * 0"
-    push:
-        branches: [main]
-        paths: [.github/workflows/sync-labels.yml]
     workflow_dispatch:
 
 jobs:
-    sync-labels:
-        name: Sync labels
-        runs-on: ubuntu-latest
-
+    run:
+        uses: RubberDuckCrew/.github/.github/workflows/action-sync-labels.yml@main
         permissions:
             issues: write
-
-        steps:
-            - name: Sync labels
-              uses: srealmoreno/label-sync-action@v2.0.0
-              with:
-                  clean-labels: true
-                  config-file: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/labels.yml
 ```
 
 ## Enforce conventions
 
-To ensure that all contributions adhere to the project's conventions, we use a GitHub Actions workflow to enforce these rules. It runs on pull requests and checks for required labels and branch naming conventions.
-
-The `enforce-labels` job ensures that at least one label is assigned to the pull request, excluding meta labels like "Request Build", "Discussion", "Question", "Wontfix", "Duplicate", and "Work in Progress". If no label is assigned, it adds a comment prompting the user to assign a label.
-
-The `enforce-branch-names` job checks that the pull request branch name matches our [Branch naming](/contributing/conventions#branch-naming) conventions. Therefore, the allowed branch naming patterns are defined in [`branches.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/branches.yml) in the `.github` repository.
+To ensure that all contributions adhere to the project's conventions, we use a GitHub Actions workflow [`action-conventions.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-conventions.yml) to enforce these rules. It is enabled by `.github/workflows/conventions.yml` in the individual repositories and runs on pull requests and checks for required labels and branch naming conventions:
 
 ```yml
 name: Enforce conventions
 
 on:
-    pull_request_target:
-        types: [opened, labeled, unlabeled]
+    pull_request:
+        types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
-    enforce-labels:
-        name: Enforce pull request labels
-        runs-on: ubuntu-latest
-
+    run:
+        uses: RubberDuckCrew/.github/.github/workflows/action-conventions.yml@main
         permissions:
             issues: write
             pull-requests: write
-
-        steps:
-            - name: Enforce pull request labels
-              uses: mheap/github-action-required-labels@v5
-              with:
-                  mode: minimum
-                  count: 1
-                  labels: "^(?!(⚗️ Request Build$|💬 Discussion$|❓ Question$|❌ Wontfix$|🔄 Duplicate$|🚧 Work in Progress$)).+" # Exclude meta labels (do not describe PR content)
-                  use_regex: true
-                  add_comment: true
-                  message: "🏷️ Please assign at least one label to this pull request before requesting a review. See our [contributing conventions](https://rubberduckcrew.pages.dev/contributing/conventions) for details."
-
-    enforce-branch-names:
-        name: Enforce pull request branch names
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Enforce pull request branch names
-              uses: IamPekka058/branchMatchRegex@v1
-              with:
-                  inputPath: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
-                  useWildcard: true
 ```
+
+The `enforce-labels` job of [`action-conventions.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-conventions.yml) ensures that at least one label is assigned to the pull request, excluding meta labels like "Request Build", "Discussion", "Question", "Wontfix", "Duplicate", and "Work in Progress". If no label is assigned, it adds a comment prompting the user to assign a label.
+
+The `enforce-branch-names` job of [`action-conventions.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-conventions.yml) checks that the pull request branch name matches our [Branch naming](/contributing/conventions#branch-naming) conventions. Therefore, the allowed branch naming patterns are defined in [`branches.yml`](https://github.com/RubberDuckCrew/.github/blob/main/configs/conventions/branches.yml).
 
 ## Actionlint
 
 Actionlint is a linter for GitHub Actions workflows. It helps to ensure that your workflow files are valid and follow best practices.
 
-To run Actionlint automatically we use a GitHub Action workflow defined in `.github/workflows/actionlint.yml`:
+To run Actionlint automatically we use a GitHub Action workflow that is defined globally in [`action-actionlint.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-actionlint.yml). In each individual repository, enable it by creating a `.github/workflows/actionlint.yml` file that uses the global workflow:
 
 ```yml
 name: Actionlint
@@ -121,30 +119,19 @@ on:
         paths: [.github/workflows/**]
 
 jobs:
-    actionlint:
-        name: Actionlint
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v5
-
-            - name: Run actionlint
-              uses: raven-actions/actionlint@v2
+    run:
+        uses: RubberDuckCrew/.github/.github/workflows/action-actionlint.yml@main
 ```
 
 To run Actionlint locally, you have two options:
 
-1. **Direct installation:**
+1. **Direct installation:** Install Actionlint directly on your system. See the [Actionlint documentation](https://github.com/rhysd/actionlint/blob/v1.7.7/docs/install.md) for installation instructions.
 
-    - Install Actionlint directly on your system. See the [Actionlint documentation](https://github.com/rhysd/actionlint/blob/v1.7.7/docs/install.md) for installation instructions.
+2. **Using a container image:** Use a container image with Actionlint already installed. Run the following command:
 
-2. **Using a container image:**
+    ```shell
+    podman run --rm -v .:/repo --workdir /repo rhysd/actionlint:latest -color
+    ```
 
-    - Use a container image with Actionlint already installed. Run the following command:
-
-        ```shell
-        podman run --rm -v .:/repo --workdir /repo rhysd/actionlint:latest -color
-        ```
-
-    > **Note:** If you are using Docker, replace `podman` with `docker` in the command above.
+    > [!NOTE]
+    > If you are using Docker, replace `podman` with `docker` in the command above.
