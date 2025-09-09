@@ -1,0 +1,11 @@
+name: Add to issue tracker
+
+on:
+    issues:
+        types: [opened]
+
+jobs:
+    run:
+        # uses: RubberDuckCrew/.github/.github/workflows/action-add-issue-tracker.yml.yml@main
+        uses: ./.github/workflows/action-add-issue-tracker.yml
+        secrets: inherit
