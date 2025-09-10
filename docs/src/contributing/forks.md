@@ -28,9 +28,10 @@ Due to security restrictions, GitHub Actions (CI builds) **cannot be fully execu
 While pull requests from forks can still run limited tests (such as unit tests or lint checks), they **do not have access to the secrets required to build APKs or App Bundles**.  
 This means that any build steps involving signing keys or deployment credentials will be skipped automatically for security reasons.
 
-## Notes
+## Keynotes
 
--   Do not create pull requests from the `main` branch of your fork.
+-   Create a fork of `main` and create your branch
+-   Make sure to follow the [branch naming conventions](/contributing/conventions#branch-naming).
+-   **DO NOT** create pull requests from the `main` branch of your fork!
 -   Keep pull requests focused and limited to a single topic or fix.
--   Follow the branch naming conventions as described in the project documentation.
 -   If you’re unsure about anything, feel free to ask or open a draft PR for early feedback.
