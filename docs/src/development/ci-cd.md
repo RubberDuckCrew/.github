@@ -4,6 +4,12 @@ CI/CD (Continuous Integration and Continuous Deployment) refers to the automatio
 
 The workflows, tools, and standards described here ensure consistent quality and efficient processes across the organization. For project-specific details, please refer to the documentation in the respective repositories.
 
+::: danger Restriction in forks
+Due to security restrictions, GitHub Actions (CI builds) in forks **cannot be fully executed**.
+Pull requests from forks can still run limited checks (such as unit tests or linting), but they **do not have access to the secrets** required to build APKs or App Bundles.
+As a result, any build steps involving signing keys or deployment credentials are **automatically skipped**.
+:::
+
 ## Renovate
 
 Renovate is a tool for automating dependency updates. It helps to keep the project's dependencies up-to-date by creating pull requests for new versions of dependencies.
