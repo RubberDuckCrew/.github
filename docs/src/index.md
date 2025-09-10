@@ -4,21 +4,23 @@ layout: home
 
 hero:
     name: "RubberDuckCrew Docs"
-    text: "General documentation for the organization"
+    tagline: "General documentation for the organization"
     image:
         src: "/logo.svg"
         alt: "RubberDuckCrew Logo"
     actions:
         - theme: brand
-          text: Contributing conventions
-          link: /contributing/conventions
+          text: Contributing guide
+          link: /contributing/
         - theme: alt
-          text: Contributing with forks
-          link: /contributing/forks
+          text: Development guide
+          link: /development/
 
 features:
-    - title: Contribution conventions
+    - title: Conventions
       details: Learn about the guidelines and best practices for contributing to our projects.
-    - title: Contributing workflows
+    - title: Workflows
       details: Explore the workflows and processes for contributing to our projects.
+    - title: CI/CD
+      details: Understand how we use Continuous Integration and Continuous Deployment to automate our development processes.
 ---
