@@ -30,6 +30,10 @@ export default defineConfig({
                         link: "/contributing/code-of-conduct",
                     },
                     {
+                        text: "Verified commits",
+                        link: "/contributing/verified-commits",
+                    },
+                    {
                         text: "Contributing conventions",
                         link: "/contributing/conventions",
                     },
