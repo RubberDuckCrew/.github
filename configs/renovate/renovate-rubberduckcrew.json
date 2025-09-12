@@ -4,6 +4,7 @@
     "major": {
         "automerge": false
     },
+    "rangeStrategy": "pin",
     "packageRules": [
         {
             "matchUpdateTypes": ["patch"],
