@@ -19,6 +19,10 @@ We are committed to providing a welcoming and inclusive environment for all cont
 
 We use shared conventions for code style, commit messages, labels, and workflows. These conventions make it easier for everyone to contribute and review changes. You can find detailed information in the [conventions guide](./conventions).
 
+## Verified commits
+
+To maintain the integrity and security of our codebase, we require **all commits** to be **verified**. This ensures that the code originates from a trusted source and hasn't been tampered with. You can find detailed information in the [verified commits guide](./verified-commits).
+
 ## Forks
 
 If you want to contribute to a repository but do not have write access, you can create a fork. Forks allow you to work independently and propose changes via pull requests. For more details on how to work with forks, see the [forks guide](./forks).
