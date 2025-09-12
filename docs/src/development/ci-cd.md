@@ -141,3 +141,24 @@ To run Actionlint locally, you have two options:
 
     > [!NOTE]
     > If you are using Docker, replace `podman` with `docker` in the command above.
+
+## Add project
+
+This workflow automatically adds newly created issues to a specified GitHub Project. It is necessary because we use a central GitHub Project to manage issues across multiple repositories. GitHub's built-in project workflows only support automation for a single repository, so this workflow enables us to add issues from any repository to the shared project automatically.
+
+The action is defined globally in [`action-add-project.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-add-project.yml). To use it in an individual repository, create a `.github/workflows/add-project.yml` file that references the global workflow and optionally specifies the project URL. If the project URL is not specified, it defaults to our default project.
+
+```yml
+name: Add to project
+
+on:
+    issues:
+        types: [opened]
+
+jobs:
+    run:
+        uses: RubberDuckCrew/.github/.github/workflows/action-add-project.yml@main
+        secrets: inherit
+        with:
+            project-url: "YOUR_PROJECT_URL (optional)"
+```
