@@ -62,7 +62,8 @@ When creating pull requests and issues, please use the appropriate labels to cat
 | 👷 CI/CD            | Changes related to continuous integration/deployment | #00fff0 | `ci/`         |
 | 🔧 Configuration    | Changes to configuration files or settings           | #868686 | `config/`     |
 | 🛠️ Maintenance      | General maintenance and updates                      | #545454 | `chore/`      |
-| ⚗️ Request Build    | Requests a build or deployment                       | #00ff9d | -             |
+| ⚗️ Request Build    | Requests a build of the project                      | #00ff9d | -             |
+| 🚀 Request Deploy   | Requests a deployment of the project                 | #00ff9d | -             |
 | 💬 Discussion       | Open discussion or brainstorming                     | #6f22ff | -             |
 | ❓ Question         | Further information is requested                     | #a16eff | -             |
 | ❌ Wontfix          | This will not be worked on                           | #ffffff | -             |
