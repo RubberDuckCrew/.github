@@ -141,3 +141,29 @@ To run Actionlint locally, you have two options:
 
     > [!NOTE]
     > If you are using Docker, replace `podman` with `docker` in the command above.
+
+## Close actions
+
+To automatically clean up issues and pull requests when they are closed, we use a GitHub Actions workflow defined globally in [`action-close-actions.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-close-actions.yml).
+It performs actions such as deleting action caches for closed pull requests and removing certain labels from closed issues and pull requests.
+
+In each individual repository, enable it by creating a `.github/workflows/close-actions.yml` file that uses the global workflow:
+
+```yml
+name: Close Actions
+
+on:
+    issues:
+        types: [closed]
+    pull_request:
+        types: [closed]
+
+jobs:
+    run:
+        uses: RubberDuckCrew/.github/.github/workflows/action-close-actions.yml@main
+        secrets: inherit
+        permissions:
+            issues: write
+            pull-requests: write
+            actions: write
+```
