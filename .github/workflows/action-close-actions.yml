@@ -1,0 +1,35 @@
+name: Close Actions
+
+on:
+    workflow_call:
+
+jobs:
+    close:
+        name: Close issue or pull request
+        runs-on: ubuntu-latest
+
+        permissions:
+            issues: write
+            pull-requests: write
+
+        steps:
+            - name: Remove labels
+              uses: IamPekka058/removeLabels@v2
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  labels: "🚧 Work in Progress"
+
+    close-pr:
+        name: Close pull request
+        runs-on: ubuntu-latest
+        if: github.event_name == 'pull_request'
+
+        permissions:
+            actions: write
+
+        steps:
+            - name: Delete branch caches
+              uses: Friedinger/DeleteBranchCaches@v2
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  ref: "refs/pull/${{ github.event.pull_request.number }}/merge"
