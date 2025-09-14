@@ -1,0 +1,25 @@
+name: Add to project
+on:
+    workflow_call:
+        inputs:
+            project-url:
+                type: string
+                required: false
+                description: "GitHub Project URL"
+                default: "https://github.com/orgs/RubberDuckCrew/projects/1"
+
+jobs:
+    add-to-project:
+        name: Add issue to project
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/create-github-app-token@v2
+              id: app-token
+              with:
+                  app-id: ${{ vars.RUBBERDUCKCREW_BOT_APP_ID }}
+                  private-key: ${{ secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY }}
+
+            - uses: actions/add-to-project@v1.0.2
+              with:
+                  project-url: ${{ inputs.project-url }}
+                  github-token: ${{ steps.app-token.outputs.token }}
