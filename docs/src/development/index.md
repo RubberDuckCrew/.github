@@ -10,4 +10,6 @@ We use Continuous Integration and Continuous Deployment (CI/CD) to automate test
 
 For details on our CI/CD setup, best practices, and how to use it in your projects, see the [CI/CD guide](./ci-cd.md).
 
-If you have questions or want to suggest improvements, feel free to open an issue or contribute to our documentation!
+## Renovate
+
+We use Renovate to keep our project dependencies up-to-date automatically. For details on how to set it up and configure it for your repositories, see the [Renovate guide](./renovate.md).
