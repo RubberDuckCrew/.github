@@ -46,7 +46,10 @@ export default defineConfig({
             {
                 text: "Development",
                 link: "/development/",
-                items: [{ text: "CI/CD", link: "/development/ci-cd" }],
+                items: [
+                    { text: "CI/CD", link: "/development/ci-cd" },
+                    { text: "Renovate", link: "/development/renovate" },
+                ],
             },
         ],
         editLink: {
