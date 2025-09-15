@@ -79,8 +79,9 @@ jobs:
             pull-requests: write
 ```
 
-> [!IMPORTANT]
-> Make sure to replace `YOUR_PROJECT_NAME` with the actual project name used in Cloudflare Pages and to set the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets in the repository.
+::: warning
+Make sure to replace `YOUR_PROJECT_NAME` with the actual project name used in Cloudflare Pages and to set the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets in the repository.
+:::
 
 ## Sync labels
 
