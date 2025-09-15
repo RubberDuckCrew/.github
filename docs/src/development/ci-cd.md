@@ -29,6 +29,23 @@ In the individual repositories, enable Renovate by creating a `.github/renovate.
 
 This will automatically apply all standard rules and labels. You can add repository-specific rules in this file if needed.
 
+::: warning Library repositories
+If the repository is a library (e.g. a shared module or SDK), it is not recommended to pin dependencies to specific versions, as this can lead to conflicts in projects that use the library (see [the renovate documentation](https://docs.renovatebot.com/dependency-pinning/#ranges-for-libraries) for details).
+
+In our default configuration, we have dependency pinning enabled, because most of our repositories are applications and not libraries. Therefore, in library repositories, you should disable dependency pinning by adding `"rangeStrategy": "auto"` to the renovate configuration:
+
+```json
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "github>RubberDuckCrew/.github//configs/renovate/renovate-rubberduckcrew.json"
+    ],
+    "rangeStrategy": "auto"
+}
+```
+
+:::
+
 For more information and examples, see the [Renovate documentation](https://docs.renovatebot.com/).
 
 ## Docs build and deployment
