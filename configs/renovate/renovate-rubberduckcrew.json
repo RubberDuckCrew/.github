@@ -15,7 +15,7 @@
             "automerge": true
         },
         {
-            "matchUpdateTypes": ["pin"],
+            "matchUpdateTypes": ["pin", "pinDigest", "digest"],
             "commitMessagePrefix": "📌",
             "commitMessageAction": "Pin"
         },
