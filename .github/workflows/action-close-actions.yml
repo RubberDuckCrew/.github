@@ -14,7 +14,7 @@ jobs:
 
         steps:
             - name: Remove labels
-              uses: IamPekka058/removeLabels@v2
+              uses: IamPekka058/removeLabels@82c8d070189f04448d6ffe291a0e398c2a749a09 # v2
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   labels: "🚧 Work in Progress"
@@ -29,7 +29,7 @@ jobs:
 
         steps:
             - name: Delete branch caches
-              uses: Friedinger/DeleteBranchCaches@v2
+              uses: Friedinger/DeleteBranchCaches@fbe15e71e4bf7f3330b1393683960f9b1e3c407e # v2
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   ref: "refs/pull/${{ github.event.pull_request.number }}/merge"

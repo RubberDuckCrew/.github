@@ -19,12 +19,12 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
               with:
                   fetch-depth: 0
 
             - name: Setup Node
-              uses: actions/setup-node@v5
+              uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
               with:
                   node-version: 22.19.0
                   cache: npm
@@ -37,7 +37,7 @@ jobs:
               run: npm run build
 
             - name: Upload build artifacts
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
               with:
                   name: docs-dist
                   path: docs/.vitepress/dist
@@ -55,13 +55,13 @@ jobs:
 
         steps:
             - name: Download build artifacts
-              uses: actions/download-artifact@v5
+              uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
               with:
                   name: docs-dist
                   path: dist
 
             - name: Deploy to Cloudflare Pages
-              uses: cloudflare/wrangler-action@v3
+              uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3
               id: deploy
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -70,7 +70,7 @@ jobs:
                   command: pages deploy dist --project-name=${{ inputs.project-name }} --branch=${{ github.head_ref || github.ref_name }}
 
             - name: Comment deployment info
-              uses: thollander/actions-comment-pull-request@v3
+              uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3
               if: github.event_name == 'pull_request'
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -80,7 +80,7 @@ jobs:
                       **🌐 Preview Deployment:** ${{ steps.deploy.outputs.pages-deployment-alias-url }}
 
             - name: Remove build request label
-              uses: IamPekka058/removeLabels@v2
+              uses: IamPekka058/removeLabels@82c8d070189f04448d6ffe291a0e398c2a749a09 # v2
               if: github.event_name == 'pull_request'
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
