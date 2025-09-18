@@ -7,6 +7,10 @@
     "rangeStrategy": "pin",
     "packageRules": [
         {
+            "matchDepTypes": ["action"],
+            "pinDigests": true
+        },
+        {
             "matchUpdateTypes": ["patch"],
             "automerge": true
         },
