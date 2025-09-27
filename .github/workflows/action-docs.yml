@@ -57,7 +57,7 @@ jobs:
             - name: Check if secrets are available
               id: check-secrets
               run: |
-                  echo "secrets_available='${{ secrets.CLOUDFLARE_API_TOKEN && secrets.CLOUDFLARE_ACCOUNT_ID && 'true' || '' }}'" >> $GITHUB_OUTPUT
+                  echo "secrets_available=${{ secrets.CLOUDFLARE_API_TOKEN && secrets.CLOUDFLARE_ACCOUNT_ID && 'true' || '' }}" >> "$GITHUB_OUTPUT"
 
     deploy:
         name: Deploy docs
