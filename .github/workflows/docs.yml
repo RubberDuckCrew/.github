@@ -3,10 +3,20 @@ name: Build and deploy docs
 on:
     push:
         branches: [main]
-        paths: [docs/**, .github/workflows/docs.yml]
+        paths:
+            [
+                docs/**,
+                .github/workflows/docs.yml,
+                .github/workflows/action-docs.yml,
+            ]
     pull_request:
         types: [opened, labeled, synchronize]
-        paths: [docs/**, .github/workflows/docs.yml]
+        paths:
+            [
+                docs/**,
+                .github/workflows/docs.yml,
+                .github/workflows/action-docs.yml,
+            ]
 
 jobs:
     run:
