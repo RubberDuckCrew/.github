@@ -2,18 +2,31 @@ name: Sync labels
 
 on:
     workflow_call:
+        inputs:
+            additional-config:
+                description: "Additional config file in the repo"
+                required: false
+                type: string
+
+permissions:
+    issues: write
 
 jobs:
-    sync-labels:
+    labels:
         name: Sync labels
         runs-on: ubuntu-latest
 
-        permissions:
-            issues: write
-
         steps:
-            - name: Sync labels
-              uses: srealmoreno/label-sync-action@850ba5cef2b25e56c6c420c4feed0319294682fd # v2.0.0
+            - name: Checkout additional config
+              if: ${{ inputs.additional-config }}
+              uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
               with:
-                  clean-labels: true
-                  config-file: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/labels.yml
+                  sparse-checkout: ${{ inputs.additional-config }}
+
+            - name: Sync labels
+              uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2
+              with:
+                  config-file: |
+                      https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/labels.yml
+                      ${{ inputs.additional-config }}
+                  delete-other-labels: true

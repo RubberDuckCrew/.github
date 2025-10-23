@@ -53,6 +53,8 @@ The labels are defined globally in [`labels.yml`](https://github.com/RubberDuckC
 
 To sync them automatically to each repository, a GitHub Actions workflow is set up in the `.github/workflows/sync-labels.yml` file that uses the global workflow [`action-sync-labels.yml`](https://github.com/RubberDuckCrew/.github/blob/main/.github/workflows/action-sync-labels.yml). The individual workflow runs on a schedule and can also be triggered manually.
 
+The global labels can be extended by repository specific labels as needed using the `additional-config` input. It should point to a YAML file in the individual repository that defines the additional labels.
+
 ```yml
 name: Sync labels
 
@@ -66,6 +68,8 @@ jobs:
         uses: RubberDuckCrew/.github/.github/workflows/action-sync-labels.yml@main
         permissions:
             issues: write
+        with:
+            additional-config: ".github/labels.yml" # Optional
 ```
 
 ## Enforce conventions
