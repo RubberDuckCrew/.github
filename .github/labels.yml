@@ -1,0 +1,3 @@
+- name: "🚀 Request Deploy"
+  description: "Requests a deployment of the project"
+  color: "00ff9d"
