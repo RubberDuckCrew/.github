@@ -11,6 +11,10 @@
             "pinDigests": true
         },
         {
+            "matchDepTypes": ["engines", "peerDependencies"],
+            "rangeStrategy": "auto"
+        },
+        {
             "matchUpdateTypes": ["patch"],
             "automerge": true
         },
