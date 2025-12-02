@@ -29,6 +29,10 @@
             "commitMessageAction": "Downgrade"
         }
     ],
+    "lockFileMaintenance": {
+        "enabled": true,
+        "automerge": true
+    },
     "commitMessagePrefix": "⬆️",
     "commitMessageAction": "Upgrade",
     "labels": ["📌 Dependencies"],
