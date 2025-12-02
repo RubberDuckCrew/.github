@@ -9,3 +9,4 @@
 - "security/*" # 🔒️ Fixing or improving security-related functionality
 - "chore/*" # 🛠️ General maintenance, dependency updates, tooling, etc.
 - "renovate/*" # 📌 Automated dependency updates by Renovate Bot
+- "dependabot/*" # 📌 Automated dependency updates by Dependabot
