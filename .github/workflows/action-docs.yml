@@ -87,7 +87,7 @@ jobs:
                   command: pages deploy dist --project-name=${{ inputs.project-name }} --branch=${{ github.head_ref || github.ref_name }}
 
             - name: Comment deployment info
-              uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3
+              uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
               if: github.event_name == 'pull_request'
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
