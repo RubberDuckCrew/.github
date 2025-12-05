@@ -8,7 +8,9 @@
     "packageRules": [
         {
             "matchDepTypes": ["action"],
-            "pinDigests": true
+            "pinDigests": true,
+            "extractVersion": "^(?<version>v?\\d+\\.\\d+\\.\\d+)$",
+            "versioning": "regex:^v?(?<major>\\d+)(\\.(?<minor>\\d+)\\.(?<patch>\\d+))?$"
         },
         {
             "matchDepTypes": ["engines", "peerDependencies"],
