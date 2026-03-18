@@ -2,6 +2,13 @@ name: Webhook Sync
 
 on:
   workflow_call:
+    secrets:
+      WEBHOOK_URL:
+        required: true
+        description: "The URL of the webhook to sync with GitHub events."
+      RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY:
+        required: true
+        description: "The private key for the GitHub App, used for authentication."
 
 jobs:
   webhook-sync:
