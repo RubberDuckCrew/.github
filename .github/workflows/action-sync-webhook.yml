@@ -11,7 +11,7 @@ jobs:
       - name: Check if secrets are available
         id: check-secrets
         run: |
-          echo "secrets_available=${{ vars.RUBBERDUCKCREW_BOT_APP_ID && secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY && 'true' || '' }}" >> "$GITHUB_OUTPUT"
+          echo "secrets_available=${{ vars.RUBBERDUCKCREW_BOT_APP_ID && secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY && secrets.WEBHOOK_URL && 'true' || '' }}" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub App token
         uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
