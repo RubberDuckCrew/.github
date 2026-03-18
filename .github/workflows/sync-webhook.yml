@@ -1,0 +1,15 @@
+name: Sync webhook
+
+on:
+  schedule:
+    - cron: "0 3 * * 0"
+  push:
+    branches: [main]
+    paths: [.github/workflows/sync-webhook.yml]
+  workflow_dispatch:
+
+jobs:
+  run:
+    # uses: RubberDuckCrew/.github/.github/workflows/action-sync-webhook.yml@main
+    uses: ./.github/workflows/action-sync-webhook.yml
+    secrets: inherit
