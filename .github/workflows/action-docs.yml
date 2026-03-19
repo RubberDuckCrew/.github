@@ -90,14 +90,14 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          gitHubToken: ${{ github.token }}
           command: pages deploy dist --project-name=${{ inputs.project-name }} --branch=${{ github.head_ref || github.ref_name }}
 
       - name: Comment deployment info
         uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
         if: github.event_name == 'pull_request'
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
           comment-tag: deployment-info
           mode: recreate
           message: |
@@ -107,6 +107,6 @@ jobs:
         uses: IamPekka058/removeLabels@82c8d070189f04448d6ffe291a0e398c2a749a09 # v2
         if: github.event_name == 'pull_request'
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           labels: |
             - 🚀 Request Deploy

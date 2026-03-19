@@ -10,7 +10,6 @@ jobs:
   run:
     # uses: RubberDuckCrew/.github/.github/workflows/action-close-actions.yml@main
     uses: ./.github/workflows/action-close-actions.yml
-    secrets: inherit
     permissions:
       issues: write
       pull-requests: write
