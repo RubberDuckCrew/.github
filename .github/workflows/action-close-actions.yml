@@ -1,35 +1,39 @@
 name: Close Actions
 
 on:
-    workflow_call:
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        description: "GitHub Token for authenticating"
+        required: true
 
 jobs:
-    close:
-        name: Close issue or pull request
-        runs-on: ubuntu-latest
+  close:
+    name: Close issue or pull request
+    runs-on: ubuntu-latest
 
-        permissions:
-            issues: write
-            pull-requests: write
+    permissions:
+      issues: write
+      pull-requests: write
 
-        steps:
-            - name: Remove labels
-              uses: IamPekka058/removeLabels@82c8d070189f04448d6ffe291a0e398c2a749a09 # v2
-              with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  labels: "🚧 Work in Progress"
+    steps:
+      - name: Remove labels
+        uses: IamPekka058/removeLabels@82c8d070189f04448d6ffe291a0e398c2a749a09 # v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: "🚧 Work in Progress"
 
-    close-pr:
-        name: Close pull request
-        runs-on: ubuntu-latest
-        if: github.event_name == 'pull_request'
+  close-pr:
+    name: Close pull request
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
 
-        permissions:
-            actions: write
+    permissions:
+      actions: write
 
-        steps:
-            - name: Delete branch caches
-              uses: Friedinger/DeleteBranchCaches@f42f72afd01dde24a516ac9f82aaed9e2b319ed7 # v2.4.1
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  ref: "refs/pull/${{ github.event.pull_request.number }}/merge"
+    steps:
+      - name: Delete branch caches
+        uses: Friedinger/DeleteBranchCaches@f42f72afd01dde24a516ac9f82aaed9e2b319ed7 # v2.4.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ref: "refs/pull/${{ github.event.pull_request.number }}/merge"
