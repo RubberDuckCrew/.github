@@ -1,0 +1,38 @@
+name: Webhook Sync
+
+on:
+  workflow_call:
+    secrets:
+      WEBHOOK_URL:
+        required: true
+        description: "The URL of the webhook to sync with GitHub events."
+      RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY:
+        required: true
+        description: "The private key for the GitHub App, used for authentication."
+
+jobs:
+  webhook-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if secrets are available
+        id: check-secrets
+        run: |
+          echo "secrets_available=${{ vars.RUBBERDUCKCREW_BOT_APP_ID && secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY && secrets.WEBHOOK_URL && 'true' || '' }}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub App token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
+        if: ${{ steps.check-secrets.outputs.secrets_available }}
+        id: app-token
+        with:
+          app-id: ${{ vars.RUBBERDUCKCREW_BOT_APP_ID }}
+          private-key: ${{ secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY }}
+
+      - name: Webhook Sync
+        uses: Friedinger/webhook-sync@eaafb5ce7b1a2849533a84237de230494689363b # v1.0.0
+        if: ${{ steps.app-token.outputs.token }}
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          events: "branch_protection_configuration, branch_protection_rule, code_scanning_alert, custom_property_values, dependabot_alert, deploy_key, discussion, dismissal_request_code_scanning, dismissal_request_dependabot, dismissal_request_secret_scanning, exemption_request_push_ruleset, exemption_request_secret_scanning, fork, gollum, issues, member, meta, milestone, public, pull_request, release, repository, repository_advisory, repository_import, repository_ruleset, repository_vulnerability_alert, secret_scanning_alert, secret_scanning_alert_location, secret_scanning_scan, security_and_analysis, star, team_add, watch"
+          content-type: "json"
