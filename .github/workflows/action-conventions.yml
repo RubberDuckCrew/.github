@@ -1,35 +1,35 @@
 name: Enforce conventions
 
 on:
-    workflow_call:
+  workflow_call:
 
 jobs:
-    enforce-labels:
-        name: Enforce pull request labels
-        runs-on: ubuntu-latest
+  enforce-labels:
+    name: Enforce pull request labels
+    runs-on: ubuntu-latest
 
-        permissions:
-            issues: write
-            pull-requests: write
+    permissions:
+      issues: write
+      pull-requests: write
 
-        steps:
-            - name: Enforce pull request labels
-              uses: mheap/github-action-required-labels@0ac283b4e65c1fb28ce6079dea5546ceca98ccbe # v5.5.2
-              with:
-                  mode: minimum
-                  count: 1
-                  labels: "^(?!(⚗️ Request Build$|💬 Discussion$|❓ Question$|❌ Wontfix$|🔄 Duplicate$|🚧 Work in Progress$)).+" # Exclude meta labels (do not describe PR content)
-                  use_regex: true
-                  add_comment: true
-                  message: "🏷️ Please assign at least one label to this pull request before requesting a review. See our [contributing conventions](https://rubberduckcrew.pages.dev/contributing/conventions) for details."
+    steps:
+      - name: Enforce pull request labels
+        uses: mheap/github-action-required-labels@0ac283b4e65c1fb28ce6079dea5546ceca98ccbe # v5.5.2
+        with:
+          mode: minimum
+          count: 1
+          labels: "^(?!(⚗️ Request Build$|💬 Discussion$|❓ Question$|❌ Wontfix$|🔄 Duplicate$|🚧 Work in Progress$)).+" # Exclude meta labels (do not describe PR content)
+          use_regex: true
+          add_comment: true
+          message: "🏷️ Please assign at least one label to this pull request before requesting a review. See our [contributing conventions](https://rubberduckcrew.pages.dev/contributing/conventions) for details."
 
-    enforce-branch-names:
-        name: Enforce pull request branch names
-        runs-on: ubuntu-latest
+  enforce-branch-names:
+    name: Enforce pull request branch names
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Enforce pull request branch names
-              uses: IamPekka058/branchMatchRegex@11a376855a7fd989a9034df90a4ef8e953f4f24a # v2.1.1
-              with:
-                  path: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
-                  useWildcardPatterns: true
+    steps:
+      - name: Enforce pull request branch names
+        uses: IamPekka058/branchMatchRegex@11a376855a7fd989a9034df90a4ef8e953f4f24a # v2.1.1
+        with:
+          path: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
+          useWildcardPatterns: true

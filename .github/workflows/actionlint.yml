@@ -1,10 +1,10 @@
 name: Actionlint
 
 on:
-    pull_request:
-        paths: [.github/workflows/**]
+  pull_request:
+    paths: [.github/workflows/**]
 
 jobs:
-    run:
-        # uses: RubberDuckCrew/.github/.github/workflows/action-actionlint.yml@main
-        uses: ./.github/workflows/action-actionlint.yml
+  run:
+    # uses: RubberDuckCrew/.github/.github/workflows/action-actionlint.yml@main
+    uses: ./.github/workflows/action-actionlint.yml
