@@ -1,105 +1,112 @@
 name: Build and deploy docs
 
 on:
-    workflow_call:
-        inputs:
-            project-name:
-                type: string
-                required: true
-                description: "Cloudflare Pages project name"
-            docs-path:
-                type: string
-                required: false
-                default: "docs"
-                description: "Path to the docs directory"
+  workflow_call:
+    inputs:
+      project-name:
+        type: string
+        required: true
+        description: "Cloudflare Pages project name"
+      docs-path:
+        type: string
+        required: false
+        default: "docs"
+        description: "Path to the docs directory"
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        description: "Cloudflare API Token with permissions to manage Pages"
+        required: true
+      CLOUDFLARE_ACCOUNT_ID:
+        description: "Cloudflare Account ID"
+        required: true
 
 concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-    build:
-        name: Build docs
-        runs-on: ubuntu-latest
+  build:
+    name: Build docs
+    runs-on: ubuntu-latest
 
-        defaults:
-            run:
-                working-directory: ${{ inputs.docs-path }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.docs-path }}
 
-        outputs:
-            secrets_available: ${{ steps.check-secrets.outputs.secrets_available }}
+    outputs:
+      secrets_available: ${{ steps.check-secrets.outputs.secrets_available }}
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-              with:
-                  fetch-depth: 0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
 
-            - name: Setup Node
-              uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
-              with:
-                  node-version: 24.14.0
-                  cache: npm
-                  cache-dependency-path: ${{ inputs.docs-path }}/package-lock.json
+      - name: Setup Node
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: 24.14.0
+          cache: npm
+          cache-dependency-path: ${{ inputs.docs-path }}/package-lock.json
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: Build with VitePress
-              run: npm run build
+      - name: Build with VitePress
+        run: npm run build
 
-            - name: Upload build artifacts
-              uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-              with:
-                  name: docs-dist
-                  path: ${{ inputs.docs-path }}/.vitepress/dist
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: docs-dist
+          path: ${{ inputs.docs-path }}/.vitepress/dist
 
-            - name: Check if secrets are available
-              id: check-secrets
-              run: |
-                  echo "secrets_available=${{ secrets.CLOUDFLARE_API_TOKEN && secrets.CLOUDFLARE_ACCOUNT_ID && 'true' || '' }}" >> "$GITHUB_OUTPUT"
+      - name: Check if secrets are available
+        id: check-secrets
+        run: |
+          echo "secrets_available=${{ secrets.CLOUDFLARE_API_TOKEN && secrets.CLOUDFLARE_ACCOUNT_ID && 'true' || '' }}" >> "$GITHUB_OUTPUT"
 
-    deploy:
-        name: Deploy docs
-        needs: build
-        if: ${{ ( github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, '🚀 Request Deploy') ) && needs.build.outputs.secrets_available }}
-        runs-on: ubuntu-latest
+  deploy:
+    name: Deploy docs
+    needs: build
+    if: ${{ ( github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, '🚀 Request Deploy') ) && needs.build.outputs.secrets_available }}
+    runs-on: ubuntu-latest
 
-        permissions:
-            contents: read
-            deployments: write
-            pull-requests: write
+    permissions:
+      contents: read
+      deployments: write
+      pull-requests: write
 
-        steps:
-            - name: Download build artifacts
-              uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-              with:
-                  name: docs-dist
-                  path: dist
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: docs-dist
+          path: dist
 
-            - name: Deploy to Cloudflare Pages
-              uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
-              id: deploy
-              with:
-                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-                  command: pages deploy dist --project-name=${{ inputs.project-name }} --branch=${{ github.head_ref || github.ref_name }}
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@da0e0dfe58b7a431659754fdf3f186c529afbe65 # v3.14.1
+        id: deploy
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          gitHubToken: ${{ github.token }}
+          command: pages deploy dist --project-name=${{ inputs.project-name }} --branch=${{ github.head_ref || github.ref_name }}
 
-            - name: Comment deployment info
-              uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
-              if: github.event_name == 'pull_request'
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  comment-tag: deployment-info
-                  mode: recreate
-                  message: |
-                      **🌐 Preview Deployment:** ${{ steps.deploy.outputs.pages-deployment-alias-url }}
+      - name: Comment deployment info
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{ github.token }}
+          comment-tag: deployment-info
+          mode: recreate
+          message: |
+            **🌐 Preview Deployment:** ${{ steps.deploy.outputs.pages-deployment-alias-url }}
 
-            - name: Remove build request label
-              uses: IamPekka058/removeLabels@82c8d070189f04448d6ffe291a0e398c2a749a09 # v2
-              if: github.event_name == 'pull_request'
-              with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  labels: |
-                      - 🚀 Request Deploy
+      - name: Remove build request label
+        uses: IamPekka058/removeLabels@82c8d070189f04448d6ffe291a0e398c2a749a09 # v2
+        if: github.event_name == 'pull_request'
+        with:
+          github_token: ${{ github.token }}
+          labels: |
+            - 🚀 Request Deploy

@@ -1,34 +1,42 @@
 name: Add to project
 on:
-    workflow_call:
-        inputs:
-            project-url:
-                type: string
-                required: false
-                description: "GitHub Project URL"
-                default: "https://github.com/orgs/RubberDuckCrew/projects/1"
+  workflow_call:
+    inputs:
+      project-url:
+        type: string
+        required: false
+        description: "GitHub Project URL"
+        default: "https://github.com/orgs/RubberDuckCrew/projects/1"
+      bot-app-id:
+        type: string
+        required: true
+        description: "The ID of the GitHub App, used for authentication."
+    secrets:
+      BOT_APP_PRIVATE_KEY:
+        description: "The private key for the GitHub App, used for authentication."
+        required: true
 
 jobs:
-    add-to-project:
-        name: Add issue to project
-        runs-on: ubuntu-latest
-        steps:
-            - name: Check if secrets are available
-              id: check-secrets
-              run: |
-                  echo "secrets_available=${{ vars.RUBBERDUCKCREW_BOT_APP_ID && secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY && 'true' || '' }}" >> "$GITHUB_OUTPUT"
+  add-to-project:
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if secrets are available
+        id: check-secrets
+        run: |
+          echo "secrets_available=${{ inputs.bot-app-id && secrets.BOT_APP_PRIVATE_KEY && 'true' || '' }}" >> "$GITHUB_OUTPUT"
 
-            - name: Create GitHub App token
-              uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
-              if: ${{ steps.check-secrets.outputs.secrets_available }}
-              id: app-token
-              with:
-                  app-id: ${{ vars.RUBBERDUCKCREW_BOT_APP_ID }}
-                  private-key: ${{ secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY }}
+      - name: Create GitHub App token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
+        if: ${{ steps.check-secrets.outputs.secrets_available }}
+        id: app-token
+        with:
+          app-id: ${{ inputs.bot-app-id }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
-            - name: Add to project
-              uses: actions/add-to-project@244f685bbc3b7adfa8466e08b698b5577571133e # v1.0.2
-              if: ${{ steps.app-token.outputs.token }}
-              with:
-                  project-url: ${{ inputs.project-url }}
-                  github-token: ${{ steps.app-token.outputs.token }}
+      - name: Add to project
+        uses: actions/add-to-project@244f685bbc3b7adfa8466e08b698b5577571133e # v1.0.2
+        if: ${{ steps.app-token.outputs.token }}
+        with:
+          project-url: ${{ inputs.project-url }}
+          github-token: ${{ steps.app-token.outputs.token }}

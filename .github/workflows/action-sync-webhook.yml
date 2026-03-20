@@ -2,11 +2,16 @@ name: Webhook Sync
 
 on:
   workflow_call:
+    inputs:
+      bot-app-id:
+        type: string
+        required: true
+        description: "The ID of the GitHub App, used for authentication."
     secrets:
       WEBHOOK_URL:
         required: true
         description: "The URL of the webhook to sync with GitHub events."
-      RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY:
+      BOT_APP_PRIVATE_KEY:
         required: true
         description: "The private key for the GitHub App, used for authentication."
 
@@ -18,15 +23,15 @@ jobs:
       - name: Check if secrets are available
         id: check-secrets
         run: |
-          echo "secrets_available=${{ vars.RUBBERDUCKCREW_BOT_APP_ID && secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY && secrets.WEBHOOK_URL && 'true' || '' }}" >> "$GITHUB_OUTPUT"
+          echo "secrets_available=${{ inputs.bot-app-id && secrets.BOT_APP_PRIVATE_KEY && secrets.WEBHOOK_URL && 'true' || '' }}" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub App token
         uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
         if: ${{ steps.check-secrets.outputs.secrets_available }}
         id: app-token
         with:
-          app-id: ${{ vars.RUBBERDUCKCREW_BOT_APP_ID }}
-          private-key: ${{ secrets.RUBBERDUCKCREW_BOT_APP_PRIVATE_KEY }}
+          app-id: ${{ inputs.bot-app-id }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: Webhook Sync
         uses: Friedinger/webhook-sync@eaafb5ce7b1a2849533a84237de230494689363b # v1.0.0

@@ -1,32 +1,32 @@
 name: Sync labels
 
 on:
-    workflow_call:
-        inputs:
-            additional-config:
-                description: "Additional config file in the repo"
-                required: false
-                type: string
+  workflow_call:
+    inputs:
+      additional-config:
+        description: "Additional config file in the repo"
+        required: false
+        type: string
 
 permissions:
-    issues: write
+  issues: write
 
 jobs:
-    labels:
-        name: Sync labels
-        runs-on: ubuntu-latest
+  labels:
+    name: Sync labels
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout additional config
-              if: ${{ inputs.additional-config }}
-              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-              with:
-                  sparse-checkout: ${{ inputs.additional-config }}
+    steps:
+      - name: Checkout additional config
+        if: ${{ inputs.additional-config }}
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          sparse-checkout: ${{ inputs.additional-config }}
 
-            - name: Sync labels
-              uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2.3.3
-              with:
-                  config-file: |
-                      https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/labels.yml
-                      ${{ inputs.additional-config }}
-                  delete-other-labels: true
+      - name: Sync labels
+        uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2.3.3
+        with:
+          config-file: |
+            https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/labels.yml
+            ${{ inputs.additional-config }}
+          delete-other-labels: true
