@@ -19,6 +19,8 @@ Here are the main active projects under the RubberDuckCrew umbrella:
 | **gitdone**        | Store your todos in GitHub issues - Android app built with Flutter & Dart.                   | [github.com/RubberDuckCrew/gitdone](https://github.com/RubberDuckCrew/gitdone)               |
 | **artifact2pr**    | A GitHub Action to automatically post links to build artifacts as comments on pull requests. | [github.com/RubberDuckCrew/artifact2pr](https://github.com/RubberDuckCrew/artifact2pr)       |
 | **github_flutter** | GitHub Client Library for Dart (Forked from github.dart).                                    | [github.com/RubberDuckCrew/github_flutter](https://github.com/RubberDuckCrew/github_flutter) |
+| **flutter-workflow** | Centralized flutter workflow used for linting, building and releasing.                                    | [github.com/RubberDuckCrew/flutter-workflow](https://github.com/RubberDuckCrew/flutter-workflow) |
+
 
 ## Getting Involved 🤝
 
