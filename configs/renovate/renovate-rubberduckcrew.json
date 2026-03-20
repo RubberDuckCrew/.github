@@ -1,43 +1,48 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": ["config:recommended"],
-    "major": {
-        "automerge": false
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "major": {
+    "automerge": false
+  },
+  "rangeStrategy": "pin",
+  "packageRules": [
+    {
+      "matchDepTypes": ["action"],
+      "pinDigests": true,
+      "extractVersion": "^(?<version>v?\\d+\\.\\d+\\.\\d+)$",
+      "versioning": "regex:^v?(?<major>\\d+)(\\.(?<minor>\\d+)\\.(?<patch>\\d+))?$"
     },
-    "rangeStrategy": "pin",
-    "packageRules": [
-        {
-            "matchDepTypes": ["action"],
-            "pinDigests": true,
-            "extractVersion": "^(?<version>v?\\d+\\.\\d+\\.\\d+)$",
-            "versioning": "regex:^v?(?<major>\\d+)(\\.(?<minor>\\d+)\\.(?<patch>\\d+))?$"
-        },
-        {
-            "matchDepTypes": ["engines", "peerDependencies"],
-            "rangeStrategy": "auto"
-        },
-        {
-            "matchUpdateTypes": ["patch"],
-            "automerge": true
-        },
-        {
-            "matchUpdateTypes": ["pin", "pinDigest", "digest"],
-            "commitMessagePrefix": "📌",
-            "commitMessageAction": "Pin"
-        },
-        {
-            "matchUpdateTypes": ["rollback"],
-            "commitMessagePrefix": "⬇️",
-            "commitMessageAction": "Downgrade"
-        }
-    ],
-    "lockFileMaintenance": {
-        "enabled": true,
-        "automerge": true
+    {
+      "matchDepTypes": ["engines", "peerDependencies"],
+      "rangeStrategy": "auto"
     },
-    "commitMessagePrefix": "⬆️",
-    "commitMessageAction": "Upgrade",
-    "labels": ["📌 Dependencies"],
-    "dependencyDashboardTitle": "📌 Dependency Dashboard",
-    "dependencyDashboardLabels": ["📌 Dependencies"]
+    {
+      "matchPackageNames": ["RubberDuckCrew/.github"],
+      "rangeStrategy": "auto",
+      "pinDigests": false
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["pin", "pinDigest", "digest"],
+      "commitMessagePrefix": "📌",
+      "commitMessageAction": "Pin"
+    },
+    {
+      "matchUpdateTypes": ["rollback"],
+      "commitMessagePrefix": "⬇️",
+      "commitMessageAction": "Downgrade"
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "commitMessagePrefix": "⬆️",
+  "commitMessageAction": "Upgrade",
+  "labels": ["📌 Dependencies"],
+  "dependencyDashboardTitle": "📌 Dependency Dashboard",
+  "dependencyDashboardLabels": ["📌 Dependencies"]
 }
