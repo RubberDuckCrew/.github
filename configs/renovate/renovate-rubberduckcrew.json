@@ -17,11 +17,6 @@
       "rangeStrategy": "auto"
     },
     {
-      "matchPackageNames": ["RubberDuckCrew/.github"],
-      "rangeStrategy": "auto",
-      "pinDigests": false
-    },
-    {
       "matchUpdateTypes": ["patch"],
       "automerge": true
     },
