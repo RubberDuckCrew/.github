@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Enforce pull request branch names
-        uses: IamPekka058/branchMatchRegex@d4e2e4737ff5ed125127f1dbdbd2daffa7a3e948 # v2.2.0
+        uses: IamPekka058/branchMatchRegex@e5d91197f747e71e8006e3cc2e0489faba46c69b # v2.2.1
         with:
           path: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
           useWildcardPatterns: true
