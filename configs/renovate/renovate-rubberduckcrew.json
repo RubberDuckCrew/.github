@@ -40,5 +40,11 @@
   "commitMessageAction": "Upgrade",
   "labels": ["📌 Dependencies"],
   "dependencyDashboardTitle": "📌 Dependency Dashboard",
-  "dependencyDashboardLabels": ["📌 Dependencies"]
+  "dependencyDashboardLabels": ["📌 Dependencies"],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["📌 Dependencies", "🔒️ Security"],
+    "commitMessagePrefix": "🔒️",
+    "commitMessageAction": "Security Fix"
+  }
 }
