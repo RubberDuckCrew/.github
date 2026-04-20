@@ -46,5 +46,6 @@
     "labels": ["📌 Dependencies", "🔒️ Security"],
     "commitMessagePrefix": "🔒️",
     "commitMessageAction": "Security Fix"
-  }
+  },
+  "minimumReleaseAge": "3 days"
 }
