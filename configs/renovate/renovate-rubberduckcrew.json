@@ -19,6 +19,9 @@
     {
       "matchUpdateTypes": ["patch"],
       "automerge": true,
+    },
+    {
+      "matchUpdateTypes": ["patch", "minor", "major"],
       "minimumReleaseAge": "3 days"
     },
     {
@@ -46,6 +49,5 @@
     "labels": ["📌 Dependencies", "🔒️ Security"],
     "commitMessagePrefix": "🔒️",
     "commitMessageAction": "Security Fix"
-  },
-  "minimumReleaseAge": "3 days"
+  }
 }
