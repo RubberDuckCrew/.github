@@ -18,7 +18,7 @@
     },
     {
       "matchUpdateTypes": ["patch"],
-      "automerge": true,
+      "automerge": true
     },
     {
       "matchUpdateTypes": ["patch", "minor", "major"],
