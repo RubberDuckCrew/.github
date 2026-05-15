@@ -2,7 +2,7 @@ name: Enforce conventions
 
 on:
   pull_request:
-    types: [opened, labeled, unlabeled, synchronize]
+    types: [opened]
 
 jobs:
   run:
