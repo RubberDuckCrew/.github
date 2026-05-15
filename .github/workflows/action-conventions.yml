@@ -30,7 +30,7 @@ jobs:
         run: |
           cat ${{ inputs.additional-labeler-config }} >> labeler-config.yml
 
-      - uses: actions/labeler@v5
+      - uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5
         with:
           configuration-path: "labeler-config.yml"
 
