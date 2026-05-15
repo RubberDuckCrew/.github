@@ -25,6 +25,10 @@
       "minimumReleaseAge": "3 days"
     },
     {
+      "matchSourceUrls": ["https://github.com/RubberDuckCrew/**"],
+      "minimumReleaseAge": null
+    },
+    {
       "matchUpdateTypes": ["pin", "pinDigest", "digest"],
       "commitMessagePrefix": "📌",
       "commitMessageAction": "Pin"
