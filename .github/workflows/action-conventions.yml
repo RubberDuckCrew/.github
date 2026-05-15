@@ -9,17 +9,12 @@ on:
         type: string
 
 jobs:
-  enforce-labels:
-    name: Enforce pull request labels
-    runs-on: ubuntu-latest
-
-    permissions:
-      issues: write
-      pull-requests: write
-
   labeler:
     name: Auto-assign pull request labels
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
     steps:
       - name: Checkout additional config
         if: ${{ inputs.additional-labeler-config }}
