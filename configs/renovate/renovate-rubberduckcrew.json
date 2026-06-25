@@ -37,6 +37,14 @@
       "matchUpdateTypes": ["rollback"],
       "commitMessagePrefix": "⬇️",
       "commitMessageAction": "Downgrade"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "pinDigests": true
+    },
+    {
+      "matchManagers": ["argocd", "devcontainer", "helmv3", "pyenv"],
+      "pinDigests": false
     }
   ],
   "lockFileMaintenance": {
