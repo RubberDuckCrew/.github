@@ -50,7 +50,7 @@ body:
     attributes:
       label: 🎨 Additional Context (Optional)
       description: Add wireframes, screenshots, links, or any other helpful information.
-      placeholder: e.g. "See Figma design: [link]"
+      placeholder: 'e.g. "See Figma design: [link]"'
     validations:
       required: false
 
