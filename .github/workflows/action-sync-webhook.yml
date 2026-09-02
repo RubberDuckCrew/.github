@@ -34,7 +34,7 @@ jobs:
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: Webhook Sync
-        uses: Friedinger/webhook-sync@07e0eda4a09a9d66b29499bac3baad767acb4d63 # v1.0.2
+        uses: Friedinger/webhook-sync@9a78cd23f6a144616fc4a6abcb335c93f5f11b2b # v1.0.3
         if: ${{ steps.app-token.outputs.token }}
         with:
           github-token: ${{ steps.app-token.outputs.token }}
