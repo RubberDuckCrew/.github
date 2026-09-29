@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Delete branch caches
-        uses: Friedinger/DeleteBranchCaches@90efbd35252dc8ea465daf9952cc8a523fbf3e2b # v2.4.5
+        uses: Friedinger/DeleteBranchCaches@5a7cc6a4d76f1200cb44dcfdffbd28e82ab2a51f # v3.0.0
         with:
           github-token: ${{ github.token }}
           ref: "refs/pull/${{ github.event.pull_request.number }}/merge"
