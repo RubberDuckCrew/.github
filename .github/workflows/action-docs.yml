@@ -12,6 +12,11 @@ on:
         required: false
         default: "docs"
         description: "Path to the docs directory"
+      node-version-file:
+        type: string
+        required: false
+        default: "mise.toml"
+        description: "File in the repository root that defines the Node.js version"
     secrets:
       CLOUDFLARE_API_TOKEN:
         description: "Cloudflare API Token with permissions to manage Pages"
@@ -45,7 +50,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 24.21.0
+          node-version-file: ${{ inputs.node-version-file }}
           cache: npm
           cache-dependency-path: ${{ inputs.docs-path }}/package-lock.json
 
