@@ -45,6 +45,8 @@ jobs:
 Make sure to replace `YOUR_PROJECT_NAME` with the actual project name used in Cloudflare Pages and to set the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets in the repository.
 :::
 
+The Node.js version is read from the calling repository. By default the workflow uses the `node` entry of the `mise.toml` in the repository root. To use another file, e.g. `.nvmrc`, set the `node-version-file` input.
+
 ## Sync labels
 
 The "Sync labels" workflow ensures that all repositories in the RubberDuckCrew organization use a consistent set of labels for issues and pull requests.
