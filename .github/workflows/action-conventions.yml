@@ -37,7 +37,8 @@ jobs:
   enforce-branch-names:
     name: Enforce pull request branch names
     runs-on: ubuntu-latest
-
+    permissions:
+      pull-requests: write
     steps:
       - name: Enforce pull request branch names
         uses: michisec/branchMatchRegex@v3.0.0
