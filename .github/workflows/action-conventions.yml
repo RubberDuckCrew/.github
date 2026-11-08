@@ -41,7 +41,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Enforce pull request branch names
-        uses: michisec/branchMatchRegex@v3.1.0
+        uses: michisec/branchMatchRegex@8a0a1e893b03449f268d7983d7350a187f963b01 # v3.1.0
         with:
           path: https://raw.githubusercontent.com/RubberDuckCrew/.github/refs/heads/main/configs/conventions/branches.yml
           useWildcardPatterns: true
